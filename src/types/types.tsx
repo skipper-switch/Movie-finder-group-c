@@ -9,6 +9,7 @@ export type Movie = {
 };
 
 export type MovieProps = {
+  id: string;
   title: string;
   year: number;
   genre: string;
