@@ -1,5 +1,5 @@
 import React from "react";
- 
+
 const Footer: React.FC = () => {
   return (
     <footer className="bg-[#071a2f] text-gray-400">
@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
             of titles in stunning quality.
           </p>
         </div>
- 
+
         {/* Browse */}
         <div>
           <h3 className="text-white font-semibold mb-4">Browse</h3>
@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
             <li>Trending</li>
           </ul>
         </div>
- 
+
         {/* Help */}
         <div>
           <h3 className="text-white font-semibold mb-4">Help</h3>
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
             <li>Privacy Policy</li>
           </ul>
         </div>
- 
+
         {/* Account */}
         <div>
           <h3 className="text-white font-semibold mb-4">Account</h3>
@@ -46,10 +46,10 @@ const Footer: React.FC = () => {
           </ul>
         </div>
       </div>
- 
+
       {/* Divider */}
       <div className="border-t border-gray-700"></div>
- 
+
       {/* Copyright */}
       <div className="text-center text-sm py-6">
         © 2026 CineMax. All rights reserved.
@@ -57,5 +57,5 @@ const Footer: React.FC = () => {
     </footer>
   );
 };
- 
+
 export default Footer;
