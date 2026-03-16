@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import MovieCard, { type Movie } from "./movie-card"
+import MovieCard, { type Movie } from "./_components/movie-card"
 
-export default function MovieGrid() {
+export default function MovieCarousel() {
   const [movies, setMovies] = useState<Movie[]>([])
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function MovieGrid() {
 
   return (
     <div className="w-full py-6 px-6">
-        <h1 className="text-[#0b1220]">Trending</h1>
+        <h1 className="text-[0b1220] text-2xl py-5">Trending Movies</h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {movies.map((movie) => (
           <MovieCard key={movie.id} {...movie} />
