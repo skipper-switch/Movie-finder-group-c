@@ -1,25 +1,5 @@
-import { Star, Play } from "lucide-react"
-
-export type Movie = {
-  id: number
-  title: string
-  year: number
-  genre: string
-  rating: number
-  image: string
-  trailer?: boolean
-}
-
-
-
-type Props = {
-  title: string
-  year: number
-  genre: string
-  rating: number
-  image: string
-  trailer?: boolean
-}
+import { Star, Play } from "lucide-react";
+import type { MovieProps } from "../../../../types/types";
 
 export default function MovieCard({
   title,
@@ -28,10 +8,9 @@ export default function MovieCard({
   rating,
   image,
   trailer,
-}: Props) {
+}: MovieProps) {
   return (
     <div className="relative min-w-[260px] h-[420px] rounded-2xl overflow-hidden group cursor-pointer">
-
       {/* background image */}
       <img
         src={image}
@@ -52,7 +31,6 @@ export default function MovieCard({
 
       {/* bottom info */}
       <div className="absolute bottom-4 left-4 right-4 text-white">
-
         <div className="flex items-center gap-1 text-sm mb-1">
           <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
           <span>{rating}</span>
@@ -63,8 +41,7 @@ export default function MovieCard({
         <p className="text-sm text-gray-300">
           {year} • {genre}
         </p>
-
       </div>
     </div>
-  )
+  );
 }
