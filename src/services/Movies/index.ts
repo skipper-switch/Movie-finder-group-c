@@ -46,7 +46,8 @@ export const fetchMovieDetails = async (movieId: string) => {
   try {
     const query = setUpQuery({
       api_key: API_KEY,
-      language: "en-US"
+      language: "en-US",
+      append_to_response: 'credits'
     });
 
     const data = await Request.get(`/movie/${movieId}${query}`);
