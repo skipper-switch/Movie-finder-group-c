@@ -5,7 +5,8 @@ import DetailsPage from "./pages/Details";
 import HomePage from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import { ScrollToTop } from "./components";
-import Movies from "./pages/Movies/movies";
+import Movies from "./pages/Movies/Movies";
+
 
 const App = () => {
   return (
