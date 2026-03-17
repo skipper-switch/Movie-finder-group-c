@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import Button from "../../components/global/Button";
+import { ArrowLeft } from "lucide-react";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -11,6 +13,7 @@ interface Video {
 
 const MoviesPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate()
 
   const [video, setVideo] = useState<Video | null>(null);
 
@@ -33,7 +36,16 @@ const MoviesPage = () => {
     );
 
   return (
-    <div className="mt-24 py-20 px-6 text-white">
+    <div className="mt-24 py-10 px-6 text-white flex gap-4 flex-col">
+      <Button
+        variant="icon"
+        size="sm"
+        onClick={() => navigate(-1)}
+        className=""
+      >
+        <ArrowLeft className="w-4 h-4 text-white" />
+      </Button>
+      
       {video && (
         <iframe
           width="100%"

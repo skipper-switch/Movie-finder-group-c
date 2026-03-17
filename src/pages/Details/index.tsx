@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { fetchMovieDetails, fetchMovieCredits } from "../../services/Movies";
 import { HeroDetails } from "../../components";
 import MovieReviews from "../../components/MovieReviews";
 import Overview from "../../components/details/overview";
 import Cast from "../../components/details/cast";
 import { type CastMember } from "../../types/types";
+import Button from "../../components/global/Button";
+import { ArrowLeft } from "lucide-react";
 
 const DetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [overview, setOverview] = useState<string>("");
   const [cast, setCast] = useState<CastMember[]>([]);
 
@@ -35,7 +38,7 @@ const DetailsPage = () => {
           <div>KEY CREW</div>
         </div>
       </div>
-      <div>More Like This</div>
+      {/* <div>More Like This</div> */}
     </div>
   );
 };
