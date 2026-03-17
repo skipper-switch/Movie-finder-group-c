@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MovieCard from "./_components/movie-card";
-import { fetchMovies, type Movie } from "../../../services/Movies";
+import { fetchMovies } from "../../../services/Movies";
 import type { MovieProps } from "../../../types/types";
 
 export default function MovieCarousel() {
