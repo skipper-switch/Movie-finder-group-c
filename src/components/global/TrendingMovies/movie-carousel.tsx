@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import MovieCard, { type Movie } from "./_components/movie-card"
+import MovieCard from "./_components/movie-card"
+import type { Movie } from "../../../types/types"
 
 export default function MovieCarousel() {
   const [movies, setMovies] = useState<Movie[]>([])
