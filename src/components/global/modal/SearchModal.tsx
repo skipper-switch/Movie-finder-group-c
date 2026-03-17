@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import type { SearchProps } from "../../../types/types";
 import { searchMovies } from "../../../services/Movies";
 import { POSTER_BASE } from "../../../utils/constants";
+import { Link } from "react-router";
 
 type Props = {
   isOpen: boolean;
@@ -69,26 +70,28 @@ export default function SearchModal({ isOpen, onClose, movies = [] }: Props) {
             <p className='text-center text-gray-500 py-10'>Searching...</p>
           ) : results.length > 0 ? (
             results.map((movie) => (
-              <div
-                key={movie.id}
-                className='flex items-center gap-4 px-6 py-4 hover:bg-white/5 cursor-pointer transition'
-              >
-                <img
-                  src={`${POSTER_BASE}${movie.poster_path}` || "/placeholder-poster.png"}
-                  alt={movie.title}
-                  className='w-14 h-14 rounded-lg object-cover'
-                />
-                <div className='flex-1'>
-                  <h3 className='text-white font-semibold'>{movie.title}</h3>
-                  <p className='text-sm text-gray-400 flex items-center gap-2'>
-                    {movie.release_date} • {movie.overview}
-                    <span className='flex items-center gap-1 text-yellow-400'>
-                      <Star size={14} />
-                      {movie.vote_average}
-                    </span>
-                  </p>
+              <Link to={`/details/${movie.id}`} onClick={onClose}>
+                <div
+                  key={movie.id}
+                  className='flex items-center gap-4 px-6 py-4 hover:bg-white/5 cursor-pointer transition'
+                >
+                  <img
+                    src={`${POSTER_BASE}${movie.poster_path}` || "/placeholder-poster.png"}
+                    alt={movie.title}
+                    className='w-14 h-14 rounded-lg object-cover'
+                  />
+                  <div className='flex-1'>
+                    <h3 className='text-white font-semibold'>{movie.title}</h3>
+                    <p className='text-sm text-gray-400 flex items-center gap-2'>
+                      {movie.release_date} • {movie.overview}
+                      <span className='flex items-center gap-1 text-yellow-400'>
+                        <Star size={14} />
+                        {movie.vote_average}
+                      </span>
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))
           ) : (
             <p className='text-center text-gray-500 py-10'>
