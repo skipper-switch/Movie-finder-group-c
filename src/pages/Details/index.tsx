@@ -1,12 +1,21 @@
+import { use, useEffect } from "react";
 import { useParams } from "react-router";
+import { fetchMovieDetails } from "../../services/Movies";
+import { HeroDetails } from "../../components";
 
 const DetailsPage = () => {
   const { id } = useParams();
 
+  useEffect(() => {
+    // Fetch movie details using the id
+    fetchMovieDetails(id as string);
+  }, [id]);
+
   return (
-    <div className="mt-30 text-white flex flex-col gap-10 w-full">
-      Movie Details: {id}
-      <div>Hero</div>
+    <div className=" text-white flex flex-col gap-10 w-full">
+      {/* Movie Details: {id} */}
+      {/* <div>Hero</div> */}
+      <HeroDetails />
       <div className="flex gap-20 w-full">
         <div className="flex flex-col gap-4 flex-2">
           <div>Overview</div>

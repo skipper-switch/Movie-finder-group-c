@@ -1,60 +1,117 @@
-import { Play, Plus, Info } from "lucide-react";
-const Hero = () => {
+import { Play, Plus, Info, Check, Star } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import type { fetchMovieDetails } from "../../../services/Movies";
+import { BACKDROP_BASE } from "../../../utils/constants";
+import Badge from "../Badge";
+import Button from "../Button";
+
+function formatRuntime(minutes: number): string {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return h > 0 ? `${h}h ${m}m` : `${m}m`;
+}
+
+function getYear(releaseDate: string): string {
+  return releaseDate?.split("-")[0] ?? "";
+}
+
+// Infer the type directly from the service — no duplication
+type MovieDetails = Awaited<ReturnType<typeof fetchMovieDetails>>;
+
+interface HeroProps {
+  movie: NonNullable<MovieDetails>;
+}
+
+const Hero = ({ movie }: HeroProps) => {
+  const navigate = useNavigate();
+  const [inList, setInList] = useState(false);
+
+  const backdropUrl = movie.backdrop_path
+    ? `${BACKDROP_BASE}${movie.backdrop_path}`
+    : undefined;
+
   return (
     <section
-      className='relative w-full h-[85vh] bg-cover bg-center flex items-center mt-24'
+      className="relative w-full h-[85vh] bg-cover bg-center flex items-center mt-24"
       style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1608889175123-8ee362201f81')",
+        backgroundImage: backdropUrl ? `url('${backdropUrl}')` : undefined,
+        backgroundColor: !backdropUrl ? "#0d1117" : undefined
       }}
     >
       {/* Gradient Overlay */}
-      <div className='absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent'></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
 
       {/* Content */}
-      <div className='relative z-10 max-w-3xl px-12 text-white'>
+      <div className="relative z-10 max-w-3xl px-12 text-white">
         {/* Featured Badge */}
-        <span className='bg-red-600 text-white text-sm px-4 py-1 rounded-full'>Featured Movie</span>
+        <span className="bg-red-600 text-white text-sm px-4 py-1 rounded-full">
+          Featured Movie
+        </span>
 
         {/* Title */}
-        <h1 className='text-7xl font-bold mt-6 mb-6'>The Haunting</h1>
+        <h1 className="text-7xl font-bold mt-6 mb-6">{movie.title}</h1>
 
         {/* Movie Info */}
-        <div className='flex items-center gap-4 text-gray-300 mb-6'>
-          <span className='border border-gray-500 px-3 py-1 rounded'>PG-13</span>
+        <div className="flex items-center gap-4 text-gray-300 mb-6">
+          <Badge
+            variant="rating"
+            icon={<Star className="w-4 h-4 fill-current" />}
+          >
+            {movie.vote_average.toFixed(1)}
+          </Badge>
 
-          <span>2026</span>
+          <span className="border border-gray-500 px-3 py-1 rounded">
+            {movie.adult ? "18+" : "PG-13"}
+          </span>
 
-          <span>•</span>
+          {movie.release_date && <span>{getYear(movie.release_date)}</span>}
 
-          <span>2h 15m</span>
+          {movie.runtime > 0 && (
+            <>
+              <span>•</span>
+              <span>{formatRuntime(movie.runtime)}</span>
+            </>
+          )}
 
-          <span>•</span>
-
-          <span>Horror, Thriller</span>
+          {movie.genres
+            .slice(0, 3)
+            .map((genre: { id: string; name: string }) => (
+              <Badge key={genre.id}>{genre.name}</Badge>
+            ))}
         </div>
 
         {/* Description */}
-        <p className='text-lg text-gray-200 leading-relaxed mb-8'>
-          In a remote mansion shrouded in mystery, a group of strangers must confront their deepest
-          fears as supernatural forces begin to unravel the fabric of reality. Experience terror
-          like never before in this spine-chilling masterpiece.
+        <p className="text-lg text-gray-200 leading-relaxed mb-8 line-clamp-3">
+          {movie.overview}
         </p>
 
         {/* Buttons */}
-        <div className='flex items-center gap-4'>
-          <button className='flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition'>
-            <Play size={18} />
+        <div className="flex items-center gap-4">
+          <Button
+            variant="primary"
+            size="lg"
+            leftIcon={<Play size={18} />}
+            onClick={() => navigate(`/movie/${movie.id}`)}
+          >
             Play Now
-          </button>
+          </Button>
 
-          <button className='flex items-center gap-2 bg-gray-700/70 px-6 py-3 rounded-full hover:bg-gray-600 transition'>
-            <Plus size={18} />
-            My List
-          </button>
+          <Button
+            variant="glass"
+            onClick={() => setInList((v) => !v)}
+            leftIcon={inList ? <Check size={16} /> : <Plus size={16} />}
+          >
+            {inList ? "In My List" : "My List"}
+          </Button>
 
-          <button className='w-12 h-12 flex items-center justify-center bg-gray-700/70 rounded-full hover:bg-gray-600 transition'>
+          <Button
+            variant="icon"
+            size="md"
+            onClick={() => navigate(`/details/${movie.id}`)}
+          >
             <Info size={20} />
-          </button>
+          </Button>
         </div>
       </div>
     </section>
