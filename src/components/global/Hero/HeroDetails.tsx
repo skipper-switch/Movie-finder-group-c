@@ -4,7 +4,7 @@ import { fetchMovieDetails } from "../../../services/Movies";
 import HeroDetailsSkeleton from "./HeroDetailsSkeleton";
 import { BACKDROP_BASE, POSTER_BASE } from "../../../utils/constants";
 import Badge from "../Badge";
-import { Check, Play, Plus, Share, Star } from "lucide-react";
+import { ArrowLeft, Check, Play, Plus, Share, Star } from "lucide-react";
 import Button from "../Button";
 
 // TMDB image base URLs
@@ -87,25 +87,14 @@ const HeroDetails = () => {
       />
 
       {/* Back button */}
-      <button
+      <Button
+        variant="icon"
+        size="sm"
         onClick={() => navigate(-1)}
-        className="absolute top-5 left-5 z-20 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center transition-colors"
+        className="absolute top-5 left-5 z-20"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2.2}
-          className="w-4 h-4 text-white"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
-      </button>
+        <ArrowLeft className="w-4 h-4 text-white" />
+      </Button>
 
       {/* Content */}
       <div
