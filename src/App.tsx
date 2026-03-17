@@ -4,11 +4,13 @@ import MainLayout from "./components/layout/MainLayout";
 import DetailsPage from "./pages/Details";
 import HomePage from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import { ScrollToTop } from "./components";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
