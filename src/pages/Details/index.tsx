@@ -1,4 +1,4 @@
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router";
 import { fetchMovieDetails } from "../../services/Movies";
 import { HeroDetails } from "../../components";
