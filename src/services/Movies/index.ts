@@ -84,3 +84,58 @@ export const fetchGenres = async () => {
 
   return data.genres;
 };
+
+export const fetchMovieCredits = async (movieId: string) => {
+  try {
+    const query = setUpQuery({
+      api_key: API_KEY,
+      language: "en-US",
+    });
+
+    const data = await Request.get(`/movie/${movieId}/credits${query}`);
+
+    return (data.cast as any[]).slice(0, 4).map((member) => ({
+      id: member.id,
+      name: member.name,
+      character: member.character,
+      profile_path: member.profile_path
+        ? `${POSTER_BASE}${member.profile_path}`
+        : null,
+    }));
+  } catch (error) {
+    console.error("Failed to fetch movie credits:", error);
+    return [];
+  }
+};
+
+export const fetchMovieReviews = async (movieId: string) => {
+  try {
+    const query = setUpQuery({
+      api_key: API_KEY,
+      language: "en-US",
+      page: 1,
+    });
+
+    const data = await Request.get(`/movie/${movieId}/reviews${query}`);
+
+    return data.results.map((review: any) => ({
+      id: review.id,
+      author: review.author,
+      avatarPath: review.author_details?.avatar_path?.replace(
+        /^\/https?:\/\//,
+        "https://",
+      ),
+      rating: review.author_details?.rating ?? null,
+      content: review.content,
+      createdAt: new Date(review.created_at).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+      url: review.url,
+    }));
+  } catch (error) {
+    console.error("Failed to fetch movie reviews:", error);
+    return [];
+  }
+};
