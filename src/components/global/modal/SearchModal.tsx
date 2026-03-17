@@ -6,11 +6,10 @@ import { POSTER_BASE } from "../../../utils/constants";
 
 type Props = {
   isOpen: boolean;
-  onClose: () => void;
-  movies: SearchProps[]; // Keep if you want to show "initial" or "local" suggestions
+  onClose: () => void; // Keep if you want to show "initial" or "local" suggestions
 };
 
-export default function SearchModal({ isOpen, onClose, movies = [] }: Props) {
+export default function SearchModal({ isOpen, onClose }: Props) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);

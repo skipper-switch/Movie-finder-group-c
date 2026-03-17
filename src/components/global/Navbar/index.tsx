@@ -3,7 +3,7 @@ import { useState } from "react";
 import SearchModal from "../modal/SearchModal";
 import { useTheme } from "../hooks/theme";
 
-export default function Navbar({ movies }) {
+export default function Navbar() {
   const [openSearch, setOpenSearch] = useState(false);
   const { dark, setDark } = useTheme();
   return (
@@ -35,7 +35,7 @@ export default function Navbar({ movies }) {
       </header>
 
       {/* ✅ OUTSIDE NAV */}
-      <SearchModal isOpen={openSearch} onClose={() => setOpenSearch(false)} movies={movies} />
+      <SearchModal isOpen={openSearch} onClose={() => setOpenSearch(false)}  />
     </>
   );
 }
