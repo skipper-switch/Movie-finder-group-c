@@ -4,7 +4,6 @@ import type { MovieDetailsCard } from "../../types/types";
 const DetailsCard: React.FC<MovieDetailsCard> = ({
   bg,
   title,
-  icon: Icon,
   items,
   color,
 }) => {
@@ -20,10 +19,10 @@ const DetailsCard: React.FC<MovieDetailsCard> = ({
         {items.map((item, index) => (
           <div
             key={index}
-            className={`flex items-center ${Icon ? "gap-3" : ""}`}
+            className={`flex items-center ${item.icon ? "gap-3" : ""}`}
           >
             <div className="text-xl">
-              {Icon && <Icon className="w-5 h-5 text-white" />}
+              {item.icon && <item.icon className="w-5 h-5 text-white" />}
             </div>
 
             <div className="flex flex-col">

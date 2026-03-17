@@ -4,7 +4,7 @@ import { fetchMovieDetails } from "../../services/Movies";
 import { HeroDetails } from "../../components";
 import DetailsCard from "../../components/details/detailsCard";
 import type { MovieDetails } from "../../types/types";
-import { DollarSign } from "lucide-react";
+import { DollarSign, Star } from "lucide-react";
 
 const DetailsPage = () => {
   const { id } = useParams();
@@ -42,11 +42,18 @@ const DetailsPage = () => {
               bg={"bg-gradient-to-r from-purple-500 to-pink-500"}
               color="#ffffff"
               title={"Box Office"}
-              icon={DollarSign}
               items={[
-                { header: "Budget", text: `${movie?.budget}` },
-                { header: "Revenue", text: `${movie?.revenue}` },
-                { header: "Votes", text: `${movie?.vote_count}` },
+                {
+                  icon: DollarSign,
+                  header: "Budget",
+                  text: `${movie?.budget}`,
+                },
+                {
+                  icon: DollarSign,
+                  header: "Revenue",
+                  text: `${movie?.revenue}`,
+                },
+                { icon: Star, header: "Votes", text: `${movie?.vote_count}` },
               ]}
             />
           </div>

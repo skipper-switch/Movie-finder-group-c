@@ -44,11 +44,11 @@ export interface MovieDetails {
 export interface DetailsItem {
   header: string;
   text: string;
+  icon?: LucideIcon;
 }
 export interface MovieDetailsCard {
   bg: string;
   title: string;
-  icon?: LucideIcon;
   color: string;
   items: DetailsItem[];
 }
