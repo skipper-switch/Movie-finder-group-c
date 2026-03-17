@@ -1,18 +1,25 @@
-import { Route, Routes } from "react-router";
-import { BrowserRouter } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 
-import Details from "./pages/details";
-
-import Home from "./pages/Home";
+import MainLayout from "./components/layout/MainLayout";
+import DetailsPage from "./pages/Details";
+import HomePage from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import { ScrollToTop } from "./components";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<HomePage />} />
 
-          <Route path="/details/:id" element={<Details />} />
+            <Route path="/details/:id" element={<DetailsPage />} />
+
+            {/* 404 route */}
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
