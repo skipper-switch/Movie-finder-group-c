@@ -27,41 +27,34 @@ const Hero = ({ movie }: HeroProps) => {
   const navigate = useNavigate();
   const [inList, setInList] = useState(false);
 
-  const backdropUrl = movie.backdrop_path
-    ? `${BACKDROP_BASE}${movie.backdrop_path}`
-    : undefined;
+  const backdropUrl = movie.backdrop_path ? `${BACKDROP_BASE}${movie.backdrop_path}` : undefined;
 
   return (
     <section
-      className="relative w-full h-[85vh] bg-cover bg-center flex items-center mt-24"
+      className='relative w-full h-[85vh] bg-cover bg-center flex items-center mt-24'
       style={{
         backgroundImage: backdropUrl ? `url('${backdropUrl}')` : undefined,
-        backgroundColor: !backdropUrl ? "#0d1117" : undefined
+        backgroundColor: !backdropUrl ? "#0d1117" : undefined,
       }}
     >
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
+      <div className='absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent' />
 
       {/* Content */}
-      <div className="relative z-10 max-w-3xl px-12 text-white">
+      <div className='relative z-10 max-w-3xl px-12 text-white'>
         {/* Featured Badge */}
-        <span className="bg-red-600 text-white text-sm px-4 py-1 rounded-full">
-          Featured Movie
-        </span>
+        <span className='bg-red-600 text-white text-sm px-4 py-1 rounded-full'>Featured Movie</span>
 
         {/* Title */}
-        <h1 className="text-7xl font-bold mt-6 mb-6">{movie.title}</h1>
+        <h1 className='text-4xl md:text-7xl font-bold mt-6 mb-6'>{movie.title}</h1>
 
         {/* Movie Info */}
-        <div className="flex items-center gap-4 text-gray-300 mb-6">
-          <Badge
-            variant="rating"
-            icon={<Star className="w-4 h-4 fill-current" />}
-          >
+        <div className='flex items-center gap-4 text-gray-300 mb-6 flex-wrap'>
+          <Badge variant='rating' icon={<Star className='w-4 h-4 fill-current' />}>
             {movie.vote_average.toFixed(1)}
           </Badge>
 
-          <span className="border border-gray-500 px-3 py-1 rounded">
+          <span className='border border-gray-500 px-3 py-1 rounded'>
             {movie.adult ? "18+" : "PG-13"}
           </span>
 
@@ -74,23 +67,19 @@ const Hero = ({ movie }: HeroProps) => {
             </>
           )}
 
-          {movie.genres
-            .slice(0, 3)
-            .map((genre: { id: string; name: string }) => (
-              <Badge key={genre.id}>{genre.name}</Badge>
-            ))}
+          {movie.genres.slice(0, 3).map((genre: { id: string; name: string }) => (
+            <Badge key={genre.id}>{genre.name}</Badge>
+          ))}
         </div>
 
         {/* Description */}
-        <p className="text-lg text-gray-200 leading-relaxed mb-8 line-clamp-3">
-          {movie.overview}
-        </p>
+        <p className='text-lg text-gray-200 leading-relaxed mb-8 line-clamp-3'>{movie.overview}</p>
 
         {/* Buttons */}
-        <div className="flex items-center gap-4">
+        <div className='flex items-center gap-4 flex-wrap'>
           <Button
-            variant="primary"
-            size="lg"
+            variant='primary'
+            size='lg'
             leftIcon={<Play size={18} />}
             onClick={() => navigate(`/movie/${movie.id}`)}
           >
@@ -98,18 +87,14 @@ const Hero = ({ movie }: HeroProps) => {
           </Button>
 
           <Button
-            variant="glass"
+            variant='glass'
             onClick={() => setInList((v) => !v)}
             leftIcon={inList ? <Check size={16} /> : <Plus size={16} />}
           >
             {inList ? "In My List" : "My List"}
           </Button>
 
-          <Button
-            variant="icon"
-            size="md"
-            onClick={() => navigate(`/details/${movie.id}`)}
-          >
+          <Button variant='icon' size='md' onClick={() => navigate(`/details/${movie.id}`)}>
             <Info size={20} />
           </Button>
         </div>
