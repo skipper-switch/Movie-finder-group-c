@@ -1,40 +1,76 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { fetchMovieDetails, fetchMovieCredits } from "../../services/Movies";
+import { fetchMovieDetails } from "../../services/Movies";
 import { HeroDetails } from "../../components";
+import DetailsCard from "../../components/details/detailsCard";
+import type { MovieDetails } from "../../types/types";
+import { DollarSign, Star } from "lucide-react";
 import MovieReviews from "../../components/MovieReviews";
 import Overview from "../../components/details/overview";
 import Cast from "../../components/details/cast";
-import { type CastMember } from "../../types/types";
-
 
 const DetailsPage = () => {
   const { id } = useParams();
-  // const navigate = useNavigate();
-  const [overview, setOverview] = useState<string>("");
-  const [cast, setCast] = useState<CastMember[]>([]);
+  const [movie, setMovie] = useState<MovieDetails | null>(null);
 
   useEffect(() => {
     if (!id) return;
-    fetchMovieDetails(id).then((data: any) => {
-      if (data?.overview) setOverview(data.overview);
-    });
-    fetchMovieCredits(id).then((data) => setCast(data));
-  }, [id]);
+    fetchMovieDetails(id).then((data: MovieDetails) => setMovie(data));
+  }, [id])
+
+  const director = movie?.credits.crew.find(
+    (member) => member.department === "Directing" && member.job === "Director",
+  );
+
+  const writers =
+    movie?.credits.crew.filter((member) => member.department === "Writing") ||
+    [];
 
   return (
     <div className=" text-white flex flex-col gap-10 w-full">
-      <HeroDetails />
+      <HeroDetails movie={movie} />
       <div className="p-10 flex gap-20 w-full">
         <div className="flex flex-col gap-8 flex-2">
-          {overview && <Overview overview={overview} />}
-          {cast.length > 0 && <Cast cast={cast} />}
+          {movie?.overview && <Overview overview={movie?.overview || ""} />}
+          {movie?.credits?.cast?.length ? <Cast cast={movie.credits.cast} /> : null}
           <MovieReviews movieId={id as string} />
         </div>
         <div className="flex flex-col gap-4 flex-1">
-          <div>Box Office</div>
-          <div>CREW</div>
-          <div>KEY CREW</div>
+          <div>
+            <DetailsCard
+              bg={"bg-gradient-to-r from-purple-500 to-pink-500"}
+              color="#ffffff"
+              title={"Box Office"}
+              items={[
+                {
+                  icon: DollarSign,
+                  header: "Budget",
+                  text: `${movie?.budget}`,
+                },
+                {
+                  icon: DollarSign,
+                  header: "Revenue",
+                  text: `${movie?.revenue}`,
+                },
+                { icon: Star, header: "Votes", text: `${movie?.vote_count}` },
+              ]}
+            />
+          </div>
+          <div>
+            <DetailsCard
+              bg={"bg-[#101828]"}
+              color="text-gray-400"
+              title={"CREW"}
+              items={[
+                { header: "Director", text: director?.name || "N/A" },
+                {
+                  header: "Writers",
+                  text: writers?.map((w) => w.name).join(", ") || "N/A",
+                },
+              ]}
+            />
+          </div>
+          {/* <div>KEY CREW</div> */}
         </div>
       </div>
       {/* <div>More Like This</div> */}

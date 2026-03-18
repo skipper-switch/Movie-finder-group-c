@@ -24,3 +24,8 @@ export const setUpQuery = (json: Record<string, any>) => {
   }
   return query.replace(/&$/g, "");
 };
+
+export const getImageUrl = (path: string | null, size: string = "w500") => {
+  if (!path) return null; 
+  return `https://image.tmdb.org/t/p/${size}${path}`;
+};
