@@ -1,4 +1,9 @@
-import { type CastProps } from "../../../types/types";
+import type { Cast as CastType } from "../../../types/types";
+import { getImageUrl } from "../../../utils";
+
+interface CastProps {
+  cast: CastType[];
+}
 
 const Cast = ({ cast }: CastProps) => {
   return (
@@ -10,7 +15,7 @@ const Cast = ({ cast }: CastProps) => {
             <div className="w-full aspect-square rounded-xl overflow-hidden bg-[#1a1d2e]">
               {member.profile_path ? (
                 <img
-                  src={member.profile_path}
+                  src={getImageUrl(member.profile_path) || ""}
                   alt={member.name}
                   className="w-full h-full object-cover"
                 />
