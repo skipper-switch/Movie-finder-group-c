@@ -1,45 +1,41 @@
-import { Search, Bell, Sun, User } from "lucide-react";
+import { Search, Sun, User, Moon } from "lucide-react";
+import { useState } from "react";
+import SearchModal from "../modal/SearchModal";
+import { useTheme } from "../hooks/theme";
 
 export default function Navbar() {
+  const [openSearch, setOpenSearch] = useState(false);
+  const { dark, setDark } = useTheme();
   return (
-    <header className='fixed inset-x-0 top-0 z-50'>
-      <nav className='nav absolute w-full bg-gradient-to-r from-[#0b0f1fdc] to-[#1c2235de]  backdrop-blur-md py-8 px-8 flex items-center justify-between'>
-        {/* Left Section */}
-        <div className='flex items-center gap-10'>
-          {/* Logo */}
-          <div className='text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent'>
-            CineMax
+    <>
+      <header className='fixed inset-x-0 top-0 z-50'>
+        <nav className='nav absolute w-full bg-gradient-to-r from-[#0b0f1fdc] to-[#1c2235de] backdrop-blur-md py-8 px-12 flex items-center justify-between'>
+          {/* Left */}
+          <div className='flex items-center gap-10'>
+            <div className='text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent'>
+              CineMax
+            </div>
           </div>
 
-          {/* Nav Links */}
-          <ul className='hidden lg:flex items-center gap-8 text-gray-300'>
-            <li className='hover:text-white cursor-pointer'>Home</li>
-            <li className='hover:text-white cursor-pointer'>Movies</li>
-            <li className='hover:text-white cursor-pointer'>TV Shows</li>
-            <li className='hover:text-white cursor-pointer'>Trending</li>
-          </ul>
-        </div>
+          {/* Right */}
+          <div className='flex items-center gap-6 text-gray-300'>
+            <button onClick={() => setOpenSearch(true)}>
+              <Search size={20} />
+            </button>
 
-        {/* Right Section */}
-        <div className='flex items-center gap-6 text-gray-300'>
-          <button className='hover:text-white'>
-            <Search size={20} />
-          </button>
+            <button onClick={() => setDark(!dark)}>
+              {dark ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
 
-          <button className='hover:text-white'>
-            <Bell size={20} />
-          </button>
-
-          <button className='hover:text-yellow-400'>
-            <Sun size={20} />
-          </button>
-
-          {/* Profile */}
-          <div className='w-9 h-9 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white'>
-            <User size={18} />
+            <div className='w-9 h-9 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white'>
+              <User size={18} />
+            </div>
           </div>
-        </div>
-      </nav>
-    </header>
+        </nav>
+      </header>
+
+      {/* ✅ OUTSIDE NAV */}
+      <SearchModal isOpen={openSearch} onClose={() => setOpenSearch(false)}  />
+    </>
   );
 }

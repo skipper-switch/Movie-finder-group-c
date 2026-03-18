@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Hero } from "../../components";
 import MovieCarousel from "../../components/global/TrendingMovies/movie-carousel";
 import { fetchMovieDetails, fetchMovies } from "../../services/Movies";
+import HeroSkeleton from "../../components/global/Hero/HeroSkeleton";
 
 const HomePage = () => {
   const [heroMovie, setHeroMovie] = useState(null);
@@ -23,7 +24,7 @@ const HomePage = () => {
 
   return (
     <>
-      {heroMovie && <Hero movie={heroMovie} />}
+   {heroMovie ? <Hero movie={heroMovie} /> : <HeroSkeleton />}
       <MovieCarousel />
     </>
   );
