@@ -1,31 +1,13 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router";
-import { fetchMovieDetails } from "../../../services/Movies";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import HeroDetailsSkeleton from "./HeroDetailsSkeleton";
 import { BACKDROP_BASE, POSTER_BASE } from "../../../utils/constants";
 import Badge from "../Badge";
 import { ArrowLeft, Check, Play, Plus, Share, Star } from "lucide-react";
 import Button from "../Button";
+import type { MovieDetails } from "../../../types/types";
 
-// TMDB image base URLs
 
-interface Genre {
-  id: number;
-  name: string;
-}
-
-interface MovieDetails {
-  id: number;
-  title: string;
-  tagline: string;
-  overview: string;
-  backdrop_path: string;
-  poster_path: string;
-  vote_average: number;
-  runtime: number;
-  release_date: string;
-  genres: Genre[];
-}
 
 function formatRuntime(minutes: number): string {
   const h = Math.floor(minutes / 60);
@@ -42,16 +24,16 @@ function formatDate(dateStr: string): string {
   });
 }
 
-const HeroDetails = () => {
-  const { id } = useParams();
+interface IMoveProps {
+  movie: MovieDetails | null
+}
+
+const HeroDetails:React.FC<IMoveProps> = ({ movie }) => {
   const navigate = useNavigate();
-  const [movie, setMovie] = useState<MovieDetails | null>(null);
+
   const [inList, setInList] = useState(false);
 
-  useEffect(() => {
-    if (!id) return;
-    fetchMovieDetails(id).then((data: MovieDetails) => setMovie(data));
-  }, [id]);
+
 
   if (!movie) {
     return <HeroDetailsSkeleton />;
