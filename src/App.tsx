@@ -5,6 +5,7 @@ import DetailsPage from "./pages/Details";
 import HomePage from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import { ScrollToTop } from "./components";
+import MoviesPage from "./pages/Movies/Index";
 
 const App = () => {
   return (
@@ -16,6 +17,8 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
 
             <Route path="/details/:id" element={<DetailsPage />} />
+
+            <Route path="/movie/:id" element={<MoviesPage />} />
 
             {/* 404 route */}
             <Route path="*" element={<NotFound />} />

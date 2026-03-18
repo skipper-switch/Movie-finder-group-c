@@ -5,6 +5,9 @@ import { HeroDetails } from "../../components";
 import DetailsCard from "../../components/details/detailsCard";
 import type { MovieDetails } from "../../types/types";
 import { DollarSign, Star } from "lucide-react";
+import MovieReviews from "../../components/MovieReviews";
+import Overview from "../../components/details/overview";
+import Cast from "../../components/details/cast";
 
 const DetailsPage = () => {
   const { id } = useParams();
@@ -13,7 +16,7 @@ const DetailsPage = () => {
   useEffect(() => {
     if (!id) return;
     fetchMovieDetails(id).then((data: MovieDetails) => setMovie(data));
-  }, [id]);
+  }, [id])
 
   const director = movie?.credits.crew.find(
     (member) => member.department === "Directing" && member.job === "Director",
@@ -25,16 +28,12 @@ const DetailsPage = () => {
 
   return (
     <div className=" text-white flex flex-col gap-10 w-full">
-      {/* Movie Details: {id} */}
-      {/* <div>Hero</div> */}
       <HeroDetails movie={movie} />
-      <div className="flex gap-20 w-full p-4">
-        <div className="flex flex-col gap-4 flex-2">
-          <div className="p-2 text-start">
-            <p>{movie?.overview}</p>
-          </div>
-          <div>Cast</div>
-          <div>Review</div>
+      <div className="p-10 flex gap-20 w-full">
+        <div className="flex flex-col gap-8 flex-2">
+          {movie?.overview && <Overview overview={movie?.overview || ""} />}
+          {movie?.credits?.cast?.length ? <Cast cast={movie.credits.cast} /> : null}
+          <MovieReviews movieId={id as string} />
         </div>
         <div className="flex flex-col gap-4 flex-1">
           <div>
@@ -71,12 +70,11 @@ const DetailsPage = () => {
               ]}
             />
           </div>
-          <div>KEY CREW</div>
+          {/* <div>KEY CREW</div> */}
         </div>
       </div>
-      <div>More Like This</div>
+      {/* <div>More Like This</div> */}
     </div>
   );
 };
-
 export default DetailsPage;
